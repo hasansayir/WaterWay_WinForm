@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e09cd96ed764680a73df277a731e485" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="WaterWayModel.Admin" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.Adres" Width="1.5" PointX="1.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.Müsteri" Width="1.5" PointX="1.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.Siparis" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.Sirket" Width="1.5" PointX="6.625" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.SirketAdres" Width="1.5" PointX="5.875" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.SirketUrun" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.Urun" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WaterWayModel.SiparisUrun" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="WaterWayModel.FK_Müsteri_Adres" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_Siparis_Müsteri" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_SiparisUrun_Siparis" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_Sirket_SirketAdres" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_SirketUrun_Sirket" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_SirketUrun_Urun" ManuallyRouted="false" />
+        <AssociationConnector Association="WaterWayModel.FK_SiparisUrun_Urun" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
