@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WaterWayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Parola" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Adres">
+    <Key>
+      <PropertyRef Name="AdresID" />
+    </Key>
+    <Property Name="AdresID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Il" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Ilce" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Mahalle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Sokak" Type="nvarchar" MaxLength="50" />
+    <Property Name="ApartNo" Type="int" Nullable="false" />
+    <Property Name="DaireNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Müsteri">
+    <Key>
+      <PropertyRef Name="MusteriID" />
+    </Key>
+    <Property Name="MusteriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MusteriAd" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MusteriSoyad" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Parola" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="AdresID" Type="int" />
+  </EntityType>
+  <EntityType Name="Siparis">
+    <Key>
+      <PropertyRef Name="SiparisID" />
+    </Key>
+    <Property Name="SiparisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SiparisZamani" Type="datetime" />
+    <Property Name="TeslimZamani" Type="datetime" />
+    <Property Name="MusteriID" Type="int" />
+    <Property Name="SiparisTutar" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WaterWay.dbo.SiparisUrun' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SiparisUrun">
+    <Key>
+      <PropertyRef Name="SiparisID" />
+    </Key>
+    <Property Name="SiparisID" Type="int" Nullable="false" />
+    <Property Name="UrunID" Type="int" />
+  </EntityType>
+  <EntityType Name="Sirket">
+    <Key>
+      <PropertyRef Name="SirketID" />
+    </Key>
+    <Property Name="SirketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SirketAdi" Type="nvarchar" MaxLength="30" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Parola" Type="nvarchar" MaxLength="50" />
+    <Property Name="SirketAdresID" Type="int" />
+  </EntityType>
+  <EntityType Name="SirketAdres">
+    <Key>
+      <PropertyRef Name="SirketAdresID" />
+    </Key>
+    <Property Name="SirketAdresID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mahalle" Type="varchar" MaxLength="30" />
+    <Property Name="Sokak" Type="varchar" MaxLength="30" />
+    <Property Name="Ilce" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Il" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SirketUrun">
+    <Key>
+      <PropertyRef Name="SirketUrunID" />
+    </Key>
+    <Property Name="SirketID" Type="int" Nullable="false" />
+    <Property Name="UrunID" Type="int" />
+    <Property Name="SirketUrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunAdi" Type="nvarchar" MaxLength="50" />
+    <Property Name="UrunUcreti" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="UrunBoyut" Type="float" />
+    <Property Name="UrunStok" Type="int" />
+  </EntityType>
+  <Association Name="FK_Müsteri_Adres">
+    <End Role="Adres" Type="Self.Adres" Multiplicity="0..1" />
+    <End Role="Müsteri" Type="Self.Müsteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Adres">
+        <PropertyRef Name="AdresID" />
+      </Principal>
+      <Dependent Role="Müsteri">
+        <PropertyRef Name="AdresID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Siparis_Müsteri">
+    <End Role="Müsteri" Type="Self.Müsteri" Multiplicity="0..1" />
+    <End Role="Siparis" Type="Self.Siparis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Müsteri">
+        <PropertyRef Name="MusteriID" />
+      </Principal>
+      <Dependent Role="Siparis">
+        <PropertyRef Name="MusteriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SiparisUrun_Siparis">
+    <End Role="Siparis" Type="Self.Siparis" Multiplicity="1" />
+    <End Role="SiparisUrun" Type="Self.SiparisUrun" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Siparis">
+        <PropertyRef Name="SiparisID" />
+      </Principal>
+      <Dependent Role="SiparisUrun">
+        <PropertyRef Name="SiparisID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SiparisUrun_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="SiparisUrun" Type="Self.SiparisUrun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="SiparisUrun">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sirket_SirketAdres">
+    <End Role="SirketAdres" Type="Self.SirketAdres" Multiplicity="0..1" />
+    <End Role="Sirket" Type="Self.Sirket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SirketAdres">
+        <PropertyRef Name="SirketAdresID" />
+      </Principal>
+      <Dependent Role="Sirket">
+        <PropertyRef Name="SirketAdresID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SirketUrun_Sirket">
+    <End Role="Sirket" Type="Self.Sirket" Multiplicity="1" />
+    <End Role="SirketUrun" Type="Self.SirketUrun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sirket">
+        <PropertyRef Name="SirketID" />
+      </Principal>
+      <Dependent Role="SirketUrun">
+        <PropertyRef Name="SirketID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SirketUrun_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="SirketUrun" Type="Self.SirketUrun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="SirketUrun">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WaterWayModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Adres" EntityType="Self.Adres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Müsteri" EntityType="Self.Müsteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Siparis" EntityType="Self.Siparis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sirket" EntityType="Self.Sirket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SirketAdres" EntityType="Self.SirketAdres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SirketUrun" EntityType="Self.SirketUrun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SiparisUrun" EntityType="Self.SiparisUrun" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SiparisUrun].[SiparisID] AS [SiparisID], 
+    [SiparisUrun].[UrunID] AS [UrunID]
+    FROM [dbo].[SiparisUrun] AS [SiparisUrun]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Müsteri_Adres" Association="Self.FK_Müsteri_Adres">
+      <End Role="Adres" EntitySet="Adres" />
+      <End Role="Müsteri" EntitySet="Müsteri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Siparis_Müsteri" Association="Self.FK_Siparis_Müsteri">
+      <End Role="Müsteri" EntitySet="Müsteri" />
+      <End Role="Siparis" EntitySet="Siparis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SiparisUrun_Siparis" Association="Self.FK_SiparisUrun_Siparis">
+      <End Role="Siparis" EntitySet="Siparis" />
+      <End Role="SiparisUrun" EntitySet="SiparisUrun" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SiparisUrun_Urun" Association="Self.FK_SiparisUrun_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="SiparisUrun" EntitySet="SiparisUrun" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sirket_SirketAdres" Association="Self.FK_Sirket_SirketAdres">
+      <End Role="SirketAdres" EntitySet="SirketAdres" />
+      <End Role="Sirket" EntitySet="Sirket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SirketUrun_Sirket" Association="Self.FK_SirketUrun_Sirket">
+      <End Role="Sirket" EntitySet="Sirket" />
+      <End Role="SirketUrun" EntitySet="SirketUrun" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SirketUrun_Urun" Association="Self.FK_SirketUrun_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="SirketUrun" EntitySet="SirketUrun" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
